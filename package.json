@@ -1,0 +1,15 @@
+{
+  "name": "publication-journals",
+  "version": "1.0.0",
+  "description": "frontend: npm start,   \r backend: npm run dev",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
