@@ -10,11 +10,11 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body
     try {
         const user = await User.findOne({ email })
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' })
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Please fill all the fields' })
         }
-        const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch) {
+        if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' })
         }
         const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: '1h' })
@@ -29,14 +29,24 @@ const loginUser = async (req, res) => {
 const registerUser = async (req, res) => {
     const { email, password } = req.body
     try {
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Please fill all the fields' })
+        }
+
+
         const existingUser = await User.findOne({ email })
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' })
+            return res.status(400).json({ message: 'Email already exists' })
+        }
+        
+        if (password.length < 6) {
+            return res.status(400).json({ message: 'Password must be atleast 6 characters long' })
         }
         const hashedPassword = await bcrypt.hash(password, 12)
         const user = new User({ email, password: hashedPassword })
         await user.save().then(() => {
-            res.status(201).json({ message: 'User created' })
+            res.status(201).json({ message: 'Account successfully created' })
         }).catch
             (err => {
                 console.log(err);

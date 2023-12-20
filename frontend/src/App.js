@@ -1,9 +1,6 @@
-
 import Home from "./pages/landingpage/Home";
-
 import { Provider } from 'react-redux';
 import store from "./redux/Store";
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Cart from "./pages/cart/Cart";
 import BookDetails from "./pages/cart/book_detail/BookDetails";
@@ -13,18 +10,25 @@ import Login from "./pages/authentication/Login";
 import Signup from "./pages/authentication/Signup";
 import ForgotPassword from "./pages/authentication/ForgotPassword";
 // import { useAuthContext } from "./components/Context/AuthContext";
+import MySnackbar from "./components/Snackbar/MySnackbar";
+import { useEffect } from "react";
+
 
 function App() {
 
   const { language, toggleLanguage } = useLanguage();
-  // const { user } = useAuthContext();
   const user = JSON.parse(localStorage.getItem('user')) || null
+
+  
+  // const { user } = useAuthContext();
   return (
     <>
 
       <Provider store={store}>
 
-
+        {
+          user && <MySnackbar severity="success" message={`Login Successful`} />
+        }
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
