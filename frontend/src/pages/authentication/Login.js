@@ -2,6 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 import MySnackbar from "../../components/Snackbar/MySnackbar";
+import MyInputField from "../../components/InputField/MyInputField";
+
 
 const Login = () => {
 
@@ -37,8 +39,19 @@ const Login = () => {
     <section className="bg-gray-50 dark:bg-gray-900" onSubmit={handleFormSubmit}>
       {error && <MySnackbar severity="error" message={error} />}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a href="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          [icon here] Top Searchers
+        <a
+          href="/"
+          className="flex items-center justify-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+        >
+          <img src="/images/logo.png" alt=""
+            className='w-[40px] h-[44px] '
+          />
+          <div className='mx-[10px] leading-none grid gap-2'>
+            <h1 className='text-[22px] font-normal'>Publication Division</h1>
+            <p className='text-[12px]'> Ministry of Information and Broadcasting <br />
+              Government of India
+            </p>
+          </div>
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -53,18 +66,7 @@ const Login = () => {
                 >
                   Your email
                 </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className={"bg-gray-50 border-2 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" + (error ? " border-red-500" : " border-gray-300")}
-                  placeholder="name@company.com"
-
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  value={email}
-                />
+                <MyInputField fieldType="email" value={email} valueState={setEmail} error={error} />
               </div>
               <div>
                 <label
@@ -73,7 +75,7 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <input
+                {/* <input
                   type="password"
                   name="password"
                   id="password"
@@ -84,7 +86,8 @@ const Login = () => {
                     setPassword(e.target.value);
                   }}
                   value={password}
-                />
+                /> */}
+                <MyInputField value={password} valueState={setPassword} error={error} />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
