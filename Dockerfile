@@ -15,3 +15,5 @@ RUN cd backend && npm install
 # Define the entry point for the container
 # Start the frontend on port 3000 and the backend on port 5000
 CMD cd frontend && npm start & cd backend && npm start
+
+EXPOSE 5000
